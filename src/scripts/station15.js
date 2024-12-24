@@ -10,6 +10,22 @@ async function getData() {
   return await result
 }
 
+function test(userList) {
+
+  // station14で使用したものと同じ
+  const buildFullName = (data) => {
+    data.full_name = data.family_name + " " + data.first_name;
+    return data;
+  }
+
+  // 3秒後にuserList.map(buildFullName)が実行される
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(userList.map(buildFullName));
+    }, 3000);
+  });
+}
+
 // awaitはasync内のみで使用でき、promiseが確定するまでJavaScriptを待機させることができる。
 // このケースの場合、test()の戻り値がpromiseになればよい（多分）。
 // setTimeoutを用いて、3秒後にPromiseを確定させる
@@ -23,4 +39,3 @@ function test(data) {
     }, 3000);
 });
 }
-
